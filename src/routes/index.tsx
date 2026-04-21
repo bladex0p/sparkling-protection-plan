@@ -366,6 +366,9 @@ function Footer() {
             SodaStream.
           </p>
           <p className="mt-2 text-xs text-muted-foreground">
+            SparklingProtect · support@sparklingprotect.shop · sparklingprotect.shop
+          </p>
+          <p className="mt-2 text-xs text-muted-foreground">
             © {new Date().getFullYear()} SparklingProtect. All rights reserved.
           </p>
         </div>
