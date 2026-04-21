@@ -56,10 +56,13 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c7bd904e-f395-44b4-9035-a85fbcc4963b/id-preview-940b5108--eb38b06b-62dc-4202-81e8-b42461897302.lovable.app-1776759320951.png" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png?v=2" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png?v=2" },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48x48.png?v=2" },
+      { rel: "shortcut icon", href: "/favicon.ico?v=2" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png?v=2" },
     ],
   }),
   shellComponent: RootShell,
