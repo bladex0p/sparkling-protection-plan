@@ -29,14 +29,24 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SparklingProtect — Independent Protection for Sparkling Water Makers" },
+      {
+        name: "description",
+        content:
+          "Affordable, independent protection plan for sparkling water makers. One-time payment, 30-day money-back guarantee. Not affiliated with SodaStream.",
+      },
+      { name: "author", content: "SparklingProtect" },
+      {
+        property: "og:title",
+        content: "SparklingProtect — Independent Protection for Sparkling Water Makers",
+      },
+      {
+        property: "og:description",
+        content:
+          "Affordable, independent protection plan for sparkling water makers. One-time payment, 30-day money-back guarantee.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
