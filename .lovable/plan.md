@@ -1,14 +1,37 @@
 
-## Update bun lockfile
+Fix the Cloudflare deploy by syncing the npm lockfile.
 
-Run `bun install` in the project root to regenerate `bun.lockb` against the current Bun version, then let the auto-sync push the updated lockfile to GitHub.
+The current failure is no longer about Bun. Cloudflare is now correctly using npm, but it runs `npm clean-install` / `npm ci`, which requires `package-lock.json` to exactly match `package.json`.
 
-### Steps
-1. Execute `bun install` at the project root — this reads `package.json` and rewrites the lockfile in place. No dependency versions change; only the lockfile format/metadata is refreshed.
-2. Verify `bun.lockb` was modified (check file timestamp / git status).
-3. The Lovable ↔ GitHub bidirectional sync will automatically commit and push the updated `bun.lockb` to your connected repository — no manual git commands needed.
+I checked the files:
+- `package.json` requires `@lovable.dev/vite-tanstack-config` `^1.4.0`
+- `package-lock.json` still has `@lovable.dev/vite-tanstack-config` `^1.2.0`
+- The lockfile is also missing `@lovable.dev/vite-plugin-hmr-gate@1.0.0`
 
-### Notes
-- `package.json` will not be modified.
-- `bunfig.toml` currently has `saveTextLockfile = false`, so the regenerated lockfile stays as the binary `bun.lockb` (not converted to text `bun.lock`). Let me know if you'd prefer to switch to the text format at the same time.
-- This requires switching out of plan mode to execute the install command.
+## Plan
+
+1. Regenerate the npm lockfile
+   - Run npm install/update against the current `package.json`
+   - This will update `package-lock.json` so Cloudflare’s `npm ci` step succeeds
+
+2. Prevent Bun from coming back into the repo
+   - Add `bun.lockb` to `.gitignore`
+   - If `bun.lockb` exists locally, remove it from the project before committing
+
+3. Keep Cloudflare deploy settings simple
+   - Path: empty
+   - Build command: `npm run build`
+   - Deploy command: `npx wrangler deploy --cwd dist/server`
+
+4. Verify the project still builds
+   - Run the production build locally after the lockfile is updated
+   - Confirm Cloudflare can pass dependency install and reach the build/deploy steps
+
+## Technical details
+
+The actual repository change needed is small:
+- Update `package-lock.json`
+- Update `.gitignore` to include `bun.lockb`
+- Do not change app routing or page code for this issue
+
+After this is committed to GitHub, Cloudflare should stop failing at the dependency installation stage.
