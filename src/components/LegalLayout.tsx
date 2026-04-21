@@ -42,6 +42,9 @@ export function LegalLayout({
           SparklingProtect is an independent protection service and is not affiliated with
           SodaStream.
         </p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          SparklingProtect · support@sparklingprotect.shop · sparklingprotect.shop
+        </p>
       </footer>
     </div>
   );
