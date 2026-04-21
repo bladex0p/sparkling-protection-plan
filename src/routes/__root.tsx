@@ -47,6 +47,13 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:title", content: "SparklingProtect — Independent Protection for Sparkling Water Makers" },
+      { name: "twitter:title", content: "SparklingProtect — Independent Protection for Sparkling Water Makers" },
+      { name: "description", content: "Sparkling Protection Plan offers independent coverage for sparkling water makers." },
+      { property: "og:description", content: "Sparkling Protection Plan offers independent coverage for sparkling water makers." },
+      { name: "twitter:description", content: "Sparkling Protection Plan offers independent coverage for sparkling water makers." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c7bd904e-f395-44b4-9035-a85fbcc4963b/id-preview-940b5108--eb38b06b-62dc-4202-81e8-b42461897302.lovable.app-1776759320951.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c7bd904e-f395-44b4-9035-a85fbcc4963b/id-preview-940b5108--eb38b06b-62dc-4202-81e8-b42461897302.lovable.app-1776759320951.png" },
     ],
     links: [
       {
