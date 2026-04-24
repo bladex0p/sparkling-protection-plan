@@ -261,6 +261,7 @@ function LifetimeMeaning() {
 }
 
 function Pricing() {
+  const { loading, handleClick } = useCheckout();
   return (
     <Section id="pricing" eyebrow="Pricing" title="One simple price">
       <div className="mx-auto max-w-md">
@@ -273,12 +274,15 @@ function Pricing() {
             <span className="text-sm text-muted-foreground">one-time</span>
           </div>
           <p className="mt-2 text-sm text-muted-foreground">No subscription. No renewals.</p>
-          <a
-            href={STRIPE_LINK}
-            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary/90"
+          <button
+            type="button"
+            onClick={handleClick}
+            disabled={loading}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:opacity-70"
           >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
             Get Protected Now
-          </a>
+          </button>
           <ul className="mt-6 space-y-2.5 text-left">
             {[
               "Mechanical failure coverage",
@@ -401,14 +405,18 @@ function Footer() {
 }
 
 function StickyCta() {
+  const { loading, handleClick } = useCheckout();
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 shadow-[0_-4px_20px_oklch(0.21_0.03_240/0.08)] backdrop-blur sm:hidden">
-      <a
-        href={STRIPE_LINK}
-        className="flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3 text-base font-semibold text-primary-foreground"
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading}
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-base font-semibold text-primary-foreground disabled:opacity-70"
       >
+        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
         Get Protection — $19
-      </a>
+      </button>
     </div>
   );
 }
