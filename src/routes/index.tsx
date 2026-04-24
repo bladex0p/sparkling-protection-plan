@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ShieldCheck,
   CreditCard,
@@ -10,9 +11,23 @@ import {
   Mail,
   Check,
   AlertCircle,
+  Loader2,
 } from "lucide-react";
+import { buyLifetimeCarbonationClub } from "@/lib/shopify-checkout";
 
-const STRIPE_LINK = "https://buy.stripe.com/28E7sF1AVfsKcPCfI63VC04";
+function useCheckout() {
+  const [loading, setLoading] = useState(false);
+  const handleClick = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await buyLifetimeCarbonationClub();
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { loading, handleClick };
+}
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -40,6 +55,7 @@ function Index() {
 }
 
 function Header() {
+  const { loading, handleClick } = useCheckout();
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
@@ -49,18 +65,22 @@ function Header() {
           </span>
           <span className="text-base font-semibold tracking-tight">SparklingProtect</span>
         </Link>
-        <a
-          href={STRIPE_LINK}
-          className="hidden items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 sm:inline-flex"
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={loading}
+          className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 disabled:opacity-70 sm:inline-flex"
         >
+          {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Get Protection — $19
-        </a>
+        </button>
       </div>
     </header>
   );
 }
 
 function Hero() {
+  const { loading, handleClick } = useCheckout();
   return (
     <section
       className="relative overflow-hidden"
@@ -79,12 +99,15 @@ function Hero() {
           warranty required.
         </p>
         <div className="mt-8 flex flex-col items-center gap-3">
-          <a
-            href={STRIPE_LINK}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition hover:bg-primary/90"
+          <button
+            type="button"
+            onClick={handleClick}
+            disabled={loading}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition hover:bg-primary/90 disabled:opacity-70"
           >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
             Get Protection – $19
-          </a>
+          </button>
           <p className="text-sm text-muted-foreground">One-time payment. No subscription.</p>
         </div>
       </div>
@@ -238,6 +261,7 @@ function LifetimeMeaning() {
 }
 
 function Pricing() {
+  const { loading, handleClick } = useCheckout();
   return (
     <Section id="pricing" eyebrow="Pricing" title="One simple price">
       <div className="mx-auto max-w-md">
@@ -250,12 +274,15 @@ function Pricing() {
             <span className="text-sm text-muted-foreground">one-time</span>
           </div>
           <p className="mt-2 text-sm text-muted-foreground">No subscription. No renewals.</p>
-          <a
-            href={STRIPE_LINK}
-            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary/90"
+          <button
+            type="button"
+            onClick={handleClick}
+            disabled={loading}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:opacity-70"
           >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
             Get Protected Now
-          </a>
+          </button>
           <ul className="mt-6 space-y-2.5 text-left">
             {[
               "Mechanical failure coverage",
@@ -378,14 +405,18 @@ function Footer() {
 }
 
 function StickyCta() {
+  const { loading, handleClick } = useCheckout();
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 shadow-[0_-4px_20px_oklch(0.21_0.03_240/0.08)] backdrop-blur sm:hidden">
-      <a
-        href={STRIPE_LINK}
-        className="flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3 text-base font-semibold text-primary-foreground"
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading}
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-base font-semibold text-primary-foreground disabled:opacity-70"
       >
+        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
         Get Protection — $19
-      </a>
+      </button>
     </div>
   );
 }
