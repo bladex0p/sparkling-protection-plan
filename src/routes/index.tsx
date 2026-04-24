@@ -55,6 +55,7 @@ function Index() {
 }
 
 function Header() {
+  const { loading, handleClick } = useCheckout();
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
@@ -64,18 +65,22 @@ function Header() {
           </span>
           <span className="text-base font-semibold tracking-tight">SparklingProtect</span>
         </Link>
-        <a
-          href={STRIPE_LINK}
-          className="hidden items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 sm:inline-flex"
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={loading}
+          className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 disabled:opacity-70 sm:inline-flex"
         >
+          {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Get Protection — $19
-        </a>
+        </button>
       </div>
     </header>
   );
 }
 
 function Hero() {
+  const { loading, handleClick } = useCheckout();
   return (
     <section
       className="relative overflow-hidden"
@@ -94,12 +99,15 @@ function Hero() {
           warranty required.
         </p>
         <div className="mt-8 flex flex-col items-center gap-3">
-          <a
-            href={STRIPE_LINK}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition hover:bg-primary/90"
+          <button
+            type="button"
+            onClick={handleClick}
+            disabled={loading}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition hover:bg-primary/90 disabled:opacity-70"
           >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
             Get Protection – $19
-          </a>
+          </button>
           <p className="text-sm text-muted-foreground">One-time payment. No subscription.</p>
         </div>
       </div>
