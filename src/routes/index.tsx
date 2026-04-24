@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ShieldCheck,
   CreditCard,
@@ -10,9 +11,23 @@ import {
   Mail,
   Check,
   AlertCircle,
+  Loader2,
 } from "lucide-react";
+import { buyLifetimeCarbonationClub } from "@/lib/shopify-checkout";
 
-const STRIPE_LINK = "https://buy.stripe.com/28E7sF1AVfsKcPCfI63VC04";
+function useCheckout() {
+  const [loading, setLoading] = useState(false);
+  const handleClick = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await buyLifetimeCarbonationClub();
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { loading, handleClick };
+}
 
 export const Route = createFileRoute("/")({
   component: Index,
